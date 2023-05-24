@@ -24,8 +24,9 @@ class LangsciPaperhivePlugin extends GenericPlugin
      */
     public function register($category, $path, $mainContextId = null)
     {
+	$success = parent::register($category, $path, $mainContextId); 
         if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return true;
-        if (parent::register($category, $path, $mainContextId)) {
+        if ($success) {
             if ($this->getEnabled($mainContextId)) {
                 HookRegistry::register('Templates::Catalog::Book::Details::Paperhive', array($this, 'addPaperhiveWidget'));
             }
